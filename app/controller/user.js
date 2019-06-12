@@ -4,14 +4,18 @@ import { insert, find, update, deleteUser } from '../db/func/user'
 
 const router = koaRouter()
 
-router.get('/api/user/getList',async(ctx,next)=>{
-    let result = await find(ctx.query.title)
+// 登录
+router.post('/api/user/login',async(ctx,next)=>{
+    let result = await find(ctx.request.body)
     ctx.body = result
 })
-router.post('/api/user/addUser',async(ctx,next)=>{
+
+// 注册
+router.post('/api/user/register',async(ctx,next)=>{
     const result = await insert(ctx.request.body)
     ctx.body = result
 })
+
 router.post('/api/user/deteleUser',async(ctx,next)=>{
     const result = await deleteUser(ctx.request.body)
     ctx.body = result

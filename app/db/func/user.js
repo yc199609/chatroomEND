@@ -1,14 +1,14 @@
 import User from '../model/user'
 
 export const insert = function(obj){
-    var item = new User({
+    var user = new User({
         userName: obj.userName,
         password: obj.password,
         phone: obj.phone,
         isdel: false
     })
     return new Promise((resolve,reject)=>{
-        item.save((err,res)=>{
+        user.save((err,res)=>{
             if(err){
                 reject({
                     code: 100,
@@ -36,7 +36,7 @@ export const update = function(obj){
         phone: obj.phone
     }
     return new Promise((resolve,reject)=>{
-        Item.updateOne(whereStr,updateStr,(err,res)=>{
+        User.updateOne(whereStr,updateStr,(err,res)=>{
             if(err){
                 reject({
                     code:100,
@@ -60,7 +60,7 @@ export const deleteUser = function(obj){
     // 执行更新的数据
     var updateStr = { isdel: true }
     return new Promise((resolve,reject)=>{
-        Item.updateOne(whereStr,updateStr,(err,res)=>{
+        User.updateOne(whereStr,updateStr,(err,res)=>{
             if(err){
                 reject({
                     code:100,
@@ -85,17 +85,23 @@ export const find = function(obj){
         isdel:false 
     }
     return new Promise((resolve,reject)=>{
-        Item.findOne(whereStr,(err,res)=>{
+        User.findOne(whereStr,(err,res)=>{
             if(err){
                 reject({
                     code: 100,
                     msg: '错误',
                     data: err
                 })
+            }else if(!res){
+                resolve({
+                    code: 400,
+                    msg: "用户名密码错误",
+                    data: res
+                })
             }else{
                 resolve({
                     code: 0,
-                    msg: "成功",
+                    msg:"成功",
                     data: res
                 })
             }
