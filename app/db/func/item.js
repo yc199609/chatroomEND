@@ -3,6 +3,7 @@ import Item from '../model/item'
 export const insert = function(obj){
     var item = new Item({
         title: obj.title,
+        user: obj.userId,
         isdel: false
     })
     return new Promise((resolve,reject)=>{
@@ -72,23 +73,25 @@ export const deleteItem = function(obj){
     })
 }
 
-export const find = function(title){
-    var whereStr = title ? { title, isdel:false } : { isdel:false }
+export const find = function(userid){
     return new Promise((resolve,reject)=>{
-        Item.find(whereStr,(err,res)=>{
-            if(err){
-                reject({
-                    code: 100,
-                    msg: '错误',
-                    data: err
-                })
-            }else{
-                resolve({
-                    code: 0,
-                    msg: "成功",
-                    data: res
-                })
-            }
-        })
+        var whereStr = userid? { user: userid } : {}
+        Item.find(whereStr)
+            .populate({ path: 'user', select:{ userName: 1 }})
+            .exec((err,obj)=>{
+                if(err){
+                    reject({
+                        code: 100,
+                        msg: '错误',
+                        data: err
+                    })
+                }else{
+                    resolve({
+                        code: 0,
+                        msg: "成功",
+                        data: obj
+                    })
+                }
+            })
     })
 } 

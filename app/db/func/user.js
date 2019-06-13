@@ -10,10 +10,9 @@ export const insert = function(obj){
     return new Promise((resolve,reject)=>{
         user.save((err,res)=>{
             if(err){
-                reject({
-                    code: 100,
-                    msg: '错误',
-                    data: res
+                resolve({
+                    code: err.code,
+                    msg: err.errmsg
                 })
             }else{
                 resolve({
