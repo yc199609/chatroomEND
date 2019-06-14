@@ -11,8 +11,10 @@
     "body-parser": "^1.19.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
+    "koa-route": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "koa-websocket": "^5.0.1",
     "mongoose": "^5.5.14",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-sequence": "^5.0.1"

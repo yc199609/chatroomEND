@@ -20,6 +20,7 @@ router.post('/api/user/deteleUser',async(ctx,next)=>{
     const result = await deleteUser(ctx.request.body)
     ctx.body = result
 })
+
 router.post('/api/user/updateUser',async(ctx,next)=>{
     const result = await update(ctx.request.body)
     ctx.body = result
