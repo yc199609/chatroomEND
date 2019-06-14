@@ -75,7 +75,7 @@ export const deleteItem = function(obj){
 
 export const find = function(userid){
     return new Promise((resolve,reject)=>{
-        var whereStr = userid? { user: userid } : {}
+        var whereStr = userid? { user: userid, isdel: false } : { isdel: false }
         Item.find(whereStr)
             .populate({ path: 'user', select:{ userName: 1 }})
             .exec((err,obj)=>{
