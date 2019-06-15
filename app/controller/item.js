@@ -5,7 +5,7 @@ import { insert, find, update, deleteItem } from '../db/func/item'
 const router = koaRouter()
 
 router.get('/api/item/getList',async(ctx,next)=>{
-    let result = await find(ctx.query.title)
+    let result = await find(ctx.query.userid)
     ctx.body = result
 })
 router.post('/api/item/addItem',async(ctx,next)=>{
