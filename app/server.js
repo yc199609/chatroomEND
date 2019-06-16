@@ -2,8 +2,10 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser'
 import itemRouter from './controller/item'
 import userRouter from './controller/user'
+import wsRouter from './controller/ws'
 import koaStatic from 'koa-static'
-const  route = require('koa-route') 
+
+// const  route = require('koa-route') 
 import websockify from 'koa-websocket' 
 
 
@@ -12,19 +14,16 @@ app.use(bodyParser())
 
 app.use(koaStatic(__dirname  + '/public'))
 
-app.use(itemRouter.routes())
+
 app.use(userRouter.routes())
+app.use(itemRouter.routes())
 
 app.ws.use(function(ctx, next) {
     // return `next` to pass the context (ctx) on to the next ws middleware
     return next(ctx);
 });
 
-app.ws.use(route.all('/ws',function(ctx){
-    ctx.websocket.send('hello world')
-    ctx.websocket.on('message',function(message){
-        console.log(message)
-    })
-}))
+app.ws.use(wsRouter.routes())
+
 
 app.listen(3000);

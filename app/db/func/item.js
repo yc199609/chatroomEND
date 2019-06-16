@@ -12,7 +12,7 @@ export const insert = function(obj){
                 reject({
                     code: 100,
                     msg: '错误',
-                    data: res
+                    data: err
                 })
             }else{
                 resolve({
