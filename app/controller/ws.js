@@ -13,9 +13,6 @@ router.all('/ws',async(ctx)=>{
     ctxArr = [...ctxArr.filter((item)=>{
         if(item.ws.readyState>1){
             return false
-        } else if (item.user===ctx.cookies.get('UserId')){
-            item.ws.close()
-            return false
         } else {
             return true
         }
